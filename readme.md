@@ -1,10 +1,14 @@
-[![wercker status](https://app.wercker.com/status/6077bdbf04300a6412268672fa39e71b/m "wercker status")](https://app.wercker.com/project/bykey/6077bdbf04300a6412268672fa39e71b)
+[![wercker status](https://app.wercker.com/status/0b1b7eab6c9b56e23f5903c2b5ac708a/m "wercker status")](https://app.wercker.com/project/bykey/0b1b7eab6c9b56e23f5903c2b5ac708a)
 
 # slack-notify
 
 Send a message to a [Slack Channel](https://slack.com/).
 
-### required
+![chat](assets/chat.png)
+
+## Getting started
+
+Required
 
 * `token` - Your Slack token.
 * `channel` - The channel name of the Slack Channel (without the #).
@@ -24,22 +28,60 @@ In the `pipeline` section you can add environment variables. You can use
 those environment variables in the [wercker.yml](http://devcenter.wercker.com/articles/werckeryml/)
 just as you would normally in a shell script (with a dollar sign in front of it).
 
-Example
---------
+### Example
 
 Add `SLACK_TOKEN` as deploy target or application environment variable.
 
+```yaml
+build:
+    after-steps:
+        - sherzberg/slack-notify:
+            subdomain: slacksubdomain
+            token: $SLACK_TOKEN
+            channel: general
+            username: wercker
+            icon_url: https://avatars3.githubusercontent.com/u/1695193?s=140
+```
 
-    build:
-        after-steps:
-            - sherzberg/slack-notify:
-                subdomain: slacksubdomain
-                token: $SLACK_TOKEN
-                channel: general
-                username: wercker
-                icon_url: https://avatars3.githubusercontent.com/u/1695193?s=140
+## Develop
 
-# License
+Install gems and stab environtment
+
+```bash
+$ bundle
+$ cp .env.example .env
+$ vi .env
+```
+
+Run notification
+
+```bash
+$ dotenv ./run.sh
+```
+
+## CHANGELOG
+
+### 0.0.9
+- Implement rich notification
+
+### 0.0.8
+- added custom icon url, icon emoji, and username properties
+
+### 0.0.6
+- Deploy url added
+- the build/deploy words are now used as links instead of showing the full
+url
+- Show the branch name in the deploy message
+
+### 0.0.5
+- Minor change in documentation
+
+### 0.0.4
+- updated documentation
+- check for redundant hash in channel argument
+- tests added
+
+## License
 
 The MIT License (MIT)
 
@@ -62,21 +104,4 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-# Changelog
 
-## 0.0.8
-- added custom icon url, icon emoji, and username properties
-
-## 0.0.6
-- Deploy url added
-- the build/deploy words are now used as links instead of showing the full
-url
-- Show the branch name in the deploy message
-
-## 0.0.5
-- Minor change in documentation
-
-## 0.0.4
-- updated documentation
-- check for redundant hash in channel argument
-- tests added
