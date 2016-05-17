@@ -4,9 +4,5 @@ build:
       - validate-wercker-step
   after-steps:
       - script:
-          code: |
-            export WERCKER_SLACK_NOTIFY_SUBDOMAIN=repro
-            export WERCKER_SLACK_NOTIFY_TOKEN=$SLACK_TOKEN
-            export WERCKER_SLACK_NOTIFY_CHANNEL=notification
-            source ./run.sh
+          code: sh ./run.sh
 
