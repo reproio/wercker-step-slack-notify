@@ -5,17 +5,17 @@
 #
 AVATAR="\"icon_url\":\"https://avatars3.githubusercontent.com/u/1695193?s=140\""
 
-if [ ! -n "$SLACK_INCOMMING_WEBHOOK_URL" ]; then
+if [ ! -n "$WERCKER_SLACK_NOTIFY_INCOMMING_WEBHOOK_URL" ]; then
   fail 'Please specify incomming webhook url property'
   exit 1
 fi
 
-if [ -n "$SLACK_ICON_EMOJI" ]; then
-  AVATAR="\"icon_emoji\":\"$SLACK_ICON_EMOJI\""
+if [ -n "$WERCKER_SLACK_NOTIFY_ICON_EMOJI" ]; then
+  AVATAR="\"icon_emoji\":\"$WERCKER_SLACK_INOTIFY_CON_EMOJI\""
 fi
 
-if [ -n "$SLACK_ICON_URL" ]; then
-  AVATAR="\"icon_url\":\"$SLACK_ICON_URL\""
+if [ -n "$WERCKER_SLACK_NOTIFY_ICON_URL" ]; then
+  AVATAR="\"icon_url\":\"$WERCKER_SLACK_NOTIFY_ICON_URL\""
 fi
 
 #
@@ -65,7 +65,7 @@ if [ "$WERCKER_SLACK_NOTIFY_ON" = "failed" ]; then
   fi
 fi
 
-RESPONSE=`curl -X POST --data-urlencode "$QUERY" "$SLACK_INCOMMING_WEBHOOK_URL" -w " %{http_code}" -s`
+RESPONSE=`curl -X POST --data-urlencode "$QUERY" "$WERCKER_SLACK_NOTIFY_INCOMMING_WEBHOOK_URL" -w " %{http_code}" -s`
 
 if [ `echo $RESPONSE | awk '{ print $NF }'` != "200" ]; then
   error "$RESPONSE"

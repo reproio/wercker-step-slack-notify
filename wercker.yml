@@ -4,5 +4,7 @@ build:
       - validate-wercker-step
   after-steps:
       - script:
-          code: sh ./run.sh
+          code: | 
+            export WERCKER_SLACK_NOTIFY_INCOMMING_WEBHOOK_URL=$SLACK_INCOMMING_WEBHOOK_URL
+            sh ./run.sh
 
