@@ -1,12 +1,8 @@
 box: wercker/default
 build:
-  steps:
-      - validate-wercker-step
-  after-steps:
-      - script:
-          code: |
-            export WERCKER_SLACK_NOTIFY_URL=$SLACK_INCOMMING_WEBHOOK_URL
-            sh ./run.sh
-      - repro/slack-notify:
-          incomming_webhook_url: $SLACK_INCOMMING_WEBHOOK
+    steps:
+        - validate-wercker-step
+    after-steps:
+        - slack-notifier:
+            url: $SLACK_INCOMMING_WEBHOOK_URL
 
